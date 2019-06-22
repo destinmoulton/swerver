@@ -1,7 +1,10 @@
 package server
 
-import "github.com/gin-gonic/gin"
-import "../../lib/config"
+import (
+	"../../lib/config"
+	"./routes"
+	"github.com/gin-gonic/gin"
+)
 
 // Run starts the gin server
 func Run(settings config.Configuration) {
@@ -9,6 +12,7 @@ func Run(settings config.Configuration) {
 	r := gin.Default()
 
 	r.Static("/assets", settings.AssetsPath)
+	routes.HTMLRoutes(r)
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
