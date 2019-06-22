@@ -11,6 +11,7 @@ func Run(settings config.Configuration) {
 
 	r := gin.Default()
 
+	r.LoadHTMLGlob("./web/templates/*")
 	r.Static("/assets", settings.AssetsPath)
 	routes.HTMLRoutes(r)
 	r.GET("/ping", func(c *gin.Context) {
