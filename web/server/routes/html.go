@@ -9,7 +9,7 @@ import (
 // HTMLRoutes generates the homepage
 func HTMLRoutes(router *gin.Engine) {
 	router.GET("/home", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{
+		c.HTML(http.StatusOK, "layout/index.html", gin.H{
 			"title": "Swerver",
 		})
 	})
