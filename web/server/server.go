@@ -11,13 +11,12 @@ func Run(settings config.Configuration) {
 
 	r := gin.Default()
 
-	r.LoadHTMLGlob("./web/templates/*")
+	r.LoadHTMLGlob("./web/templates/**/*")
+
 	r.Static("/assets", settings.AssetsPath)
+
 	routes.HTMLRoutes(r)
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	routes.AJAXRoutes(r)
+
 	r.Run(settings.Port)
 }
