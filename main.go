@@ -1,10 +1,12 @@
 package main
 
 import (
+	"./lib/config"
 	"./web/server"
 )
 
 func main() {
-	server.Run()
-	//commander.Run("systemctl", "status", "sshd")
+
+	settings := config.LoadConfig("./config/config.json")
+	server.Run(settings)
 }
