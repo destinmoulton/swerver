@@ -254,3 +254,16 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     background-color: #fff;
     border-radius: 4px;
 }
+
+#sw-ip-container {
+    position: absolute;
+    margin-left: 25px;
+    bottom: 25px;
+    padding-top: 4px;
+    width: 200px;
+    min-height: 44px;
+    border-radius: 4px;
+    background-color: #fff;
+    text-align: center;
+    font-size: 18px;
+}
