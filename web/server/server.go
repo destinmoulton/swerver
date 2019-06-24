@@ -1,13 +1,13 @@
 package server
 
 import (
-	"../../lib/config"
+	"../../lib/configparser"
 	"./routes"
 	"github.com/gin-gonic/gin"
 )
 
 // Run starts the gin server
-func Run(settings config.Configuration) {
+func Run(settings configparser.Configuration) {
 
 	r := gin.Default()
 

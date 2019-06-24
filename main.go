@@ -1,12 +1,12 @@
 package main
 
 import (
-	"./lib/config"
+	"./lib/configparser"
 	"./web/server"
 )
 
 func main() {
 
-	settings := config.LoadConfig("./config/config.json")
+	settings := configparser.LoadConfig("./config/config.json")
 	server.Run(settings)
 }
