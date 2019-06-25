@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	"../configparser"
@@ -16,8 +17,9 @@ func Run(parts ...string) (string, error) {
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		if exitErr, ok := err.(*exec.ExitError); ok {
-			return "", fmt.Errorf("Error running command. Exited properly. %v", exitErr)
+		if _, ok := err.(*exec.ExitError); ok {
+
+			return "", fmt.Errorf("%v", string(out))
 		}
 		return "", fmt.Errorf("Error running command. Exited improperly. %v", err)
 	}
@@ -37,7 +39,7 @@ func SystemCtlStatus(service string) string {
 // RunScript runs the specified script
 func RunScript(settings configparser.Configuration, scriptToRun string) (string, error) {
 
-	path := settings.ScriptsPath + scriptToRun
+	path := filepath.Join(settings.ScriptsPath, scriptToRun)
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return "", fmt.Errorf("Script `%v` does not exist", path)
 	}
