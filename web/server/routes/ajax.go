@@ -3,6 +3,7 @@ package routes
 import (
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 
@@ -66,5 +67,27 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 			"scripts": settings.Scripts,
 			"path":    settings.ScriptsPath,
 		})
+	})
+
+	router.GET(prefix+"/run-script", func(c *gin.Context) {
+		script := c.Query("script")
+
+		output, err := commander.RunScript(settings, script)
+
+		isError := false
+		var lines []string
+		if err != nil {
+			isError = true
+
+			lines = strings.Split(err.Error(), "\n")
+		} else {
+
+			lines = strings.Split(output, "\n")
+		}
+		c.HTML(http.StatusOK, "ajax/tty.html", gin.H{
+			"lines":   lines,
+			"isError": isError,
+		})
+
 	})
 }
