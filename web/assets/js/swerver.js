@@ -7,6 +7,11 @@
             container: "div#sw-services-container",
             uri: "services",
             onLoad: true
+        },
+        scripts: {
+            container: "div#sw-scripts-container",
+            uri: "scripts",
+            onLoad: true
         }
     };
     $(function() {

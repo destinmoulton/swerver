@@ -1,0 +1,16 @@
+{{ define "ajax/scripts.html"}}
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th>Script</th>
+            <th>Run</th>
+    </thead>
+    <tbody>
+        {{ range .scripts }}
+        <tr>
+            <td>{{.Name}}</td>
+            <td><button class='button-success pure-button'>Run</button></td>
+        {{ end }}
+    </tbody>
+</table>
+{{ end }}
