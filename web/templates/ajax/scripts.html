@@ -8,9 +8,10 @@
     <tbody>
         {{ range .scripts }}
         <tr>
-            <td>{{.Name}}</td>
+            <td>{{ . }}</td>
             <td><button class='button-success pure-button'>Run</button></td>
         {{ end }}
     </tbody>
 </table>
+<div>Scripts Path: {{.path}}</div>
 {{ end }}
