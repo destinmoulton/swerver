@@ -8,9 +8,11 @@ import (
 
 // Configuration struct contains the json decoded options
 type Configuration struct {
-	Port       string
-	AssetsPath string
-	Services   []string
+	Port        string
+	AssetsPath  string
+	Services    []string
+	ScriptsPath string
+	Scripts     []string
 }
 
 // LoadConfig loads the Config struct via configPath
