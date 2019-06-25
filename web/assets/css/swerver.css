@@ -302,3 +302,26 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     border-radius: 15px;
     border: 2px solid #191818;
 }
+
+#sw-scripts-container {
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #191818;
+}
+
+#sw-tty-container {
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid #191818;
+}
+
+.sw-tty-error {
+    border: 2px solid maroon;
+    padding: 20px;
+    color: maroon;
+}
+
+.sw-tty-output {
+    border: 2px solid gray;
+    padding: 20px;
+}
