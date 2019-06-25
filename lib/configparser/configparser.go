@@ -10,6 +10,7 @@ import (
 type Configuration struct {
 	Port       string
 	AssetsPath string
+	Services   []string
 }
 
 // LoadConfig loads the Config struct via configPath
