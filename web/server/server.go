@@ -16,7 +16,7 @@ func Run(settings configparser.Configuration) {
 	r.Static("/assets", settings.AssetsPath)
 
 	routes.HTMLRoutes(r)
-	routes.AJAXRoutes(r)
+	routes.AJAXRoutes(r, settings)
 
 	r.Run(settings.Port)
 }
