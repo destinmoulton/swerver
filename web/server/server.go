@@ -11,7 +11,7 @@ func Run(settings configparser.Configuration) {
 
 	r := gin.Default()
 
-	r.LoadHTMLGlob("./web/templates/**/*")
+	r.LoadHTMLGlob(settings.TemplatesGlob)
 
 	r.Static("/assets", settings.AssetsPath)
 
