@@ -1,5 +1,5 @@
 {{ define "ajax/services.html"}}
-<table>
+<table class="pure-table">
     <thead>
         <tr>
             <th>Service</th>
@@ -14,13 +14,14 @@
         <tr>
             <td>{{.Name}}</td>
             <td>{{.Response}}</td>
-            <td>stop</td>
-            <td>start</td>
-            <td>restart</td>
+            <td><button class='button-warning pure-button'>stop</button></td>
+            <td>
+            {{ if (eq .Response "inactive") }}
+                <button class='button-success pure-button'>start</button>
+            {{ end }}
+            </td>
+            <td><button class='button-secondary pure-button'>restart</button></td>
         </tr>
-        <script>
-            console.log("{{ .Response }}")
-        </script>
         {{ end }}
     </tbody>
 </table>
