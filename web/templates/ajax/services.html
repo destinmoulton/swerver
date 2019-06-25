@@ -1,0 +1,27 @@
+{{ define "ajax/services.html"}}
+<table>
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Status</th>
+            <th>Stop</th>
+            <th>Start</th>
+            <th>Restart</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{ range .services }}
+        <tr>
+            <td>{{.Name}}</td>
+            <td>{{.Response}}</td>
+            <td>stop</td>
+            <td>start</td>
+            <td>restart</td>
+        </tr>
+        <script>
+            console.log("{{ .Response }}")
+        </script>
+        {{ end }}
+    </tbody>
+</table>
+{{ end }}
