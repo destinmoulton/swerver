@@ -2,24 +2,31 @@ package commander
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
+	"strings"
 )
 
 // Run a shell command
-func Run(parts ...string) {
+func Run(parts ...string) (string, error) {
 
-	cmd := exec.Command(parts[0], parts[0:]...)
+	cmd := exec.Command(parts[0], parts[1:]...)
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		if exitErr, ok := err.(*exec.ExitError); ok {
-			fmt.Printf("finished with non-zero: %v\n", exitErr)
-		} else {
-			fmt.Printf("failed to run: %v", err)
-			os.Exit(1)
+			return "", fmt.Errorf("Error running command. Exited properly. %v", exitErr)
 		}
+		return "", fmt.Errorf("Error running command. Exited improperly. %v", err)
 	}
-	fmt.Printf("Status is: %s\n", string(out))
+	return string(out), nil
+}
 
+// SystemCtlStatus gets the status for a systemctl status
+func SystemCtlStatus(service string) string {
+	resp, err := Run("systemctl", "show", "-p", "ActiveState", service)
+
+	if err != nil {
+		return "ERROR"
+	}
+	return strings.Split(resp, "=")[1]
 }
