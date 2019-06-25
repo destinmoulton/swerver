@@ -53,4 +53,12 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 			"error":    error,
 		})
 	})
+
+	router.GET(prefix+"/scripts", func(c *gin.Context) {
+
+		c.HTML(http.StatusOK, "ajax/scripts.html", gin.H{
+			"scripts": settings.Scripts,
+			"path":    settings.ScriptsPath,
+		})
+	})
 }
