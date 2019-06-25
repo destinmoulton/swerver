@@ -28,5 +28,5 @@ func SystemCtlStatus(service string) string {
 	if err != nil {
 		return "ERROR"
 	}
-	return strings.Split(resp, "=")[1]
+	return strings.Split(strings.TrimRight(resp, "\n"), "=")[1]
 }
