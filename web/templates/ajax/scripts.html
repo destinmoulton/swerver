@@ -9,7 +9,9 @@
         {{ range .scripts }}
         <tr>
             <td>{{ . }}</td>
-            <td><button class='button-success pure-button'>Run</button></td>
+            <td><button class="button-success pure-button sw-ajax-button"
+                        data-action="run-script"
+                        data-script="{{ . }}">Run</button></td>
         {{ end }}
     </tbody>
 </table>
