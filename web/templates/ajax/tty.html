@@ -1,0 +1,7 @@
+{{ define "ajax/tty.html"}}
+<div class="{{ if .isError }} sw-tty-error {{ else }} sw-tty-output {{ end }}">
+    {{ range .lines }}
+    {{ . }}<br />
+    {{ end }}
+</div>
+{{ end }}
