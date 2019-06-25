@@ -2,8 +2,11 @@ package commander
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
+
+	"../configparser"
 )
 
 // Run a shell command
@@ -29,4 +32,19 @@ func SystemCtlStatus(service string) string {
 		return "ERROR"
 	}
 	return strings.Split(strings.TrimRight(resp, "\n"), "=")[1]
+}
+
+// RunScript runs the specified script
+func RunScript(settings configparser.Configuration, scriptToRun string) (string, error) {
+
+	path := settings.ScriptsPath + scriptToRun
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		return "", fmt.Errorf("Script `%v` does not exist", path)
+	}
+	resp, err := Run("sh", "-c", path)
+
+	if err != nil {
+		return "", err
+	}
+	return resp, nil
 }
