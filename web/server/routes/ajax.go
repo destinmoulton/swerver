@@ -11,8 +11,9 @@ import (
 )
 
 type service struct {
-	Name     string
-	Response string
+	Name           string
+	ResponseString string
+	IsActive       bool
 }
 
 // AJAXRoutes creates the basic routes for ajax calls
@@ -42,12 +43,17 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 	router.GET(prefix+"/services", func(c *gin.Context) {
 
 		var services []service
+		error := ""
 		for _, serviceName := range settings.Services {
 
 			response := commander.SystemCtlStatus(serviceName)
-			services = append(services, service{serviceName, response})
+			error = response
+			isActive := false
+			if response == "active" {
+				isActive = true
+			}
+			services = append(services, service{serviceName, response, isActive})
 		}
-		error := ""
 		c.HTML(http.StatusOK, "ajax/services.html", gin.H{
 			"services": services,
 			"error":    error,
