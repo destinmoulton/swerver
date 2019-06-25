@@ -2,7 +2,12 @@
     "use strict";
 
     const ajaxCalls = {
-        ip: { container: "div#sw-ip-container", uri: "ip", onLoad: true }
+        ip: { container: "div#sw-ip-container", uri: "ip", onLoad: true },
+        services: {
+            container: "div#sw-services-container",
+            uri: "services",
+            onLoad: true
+        }
     };
     $(function() {
         console.log("running");
