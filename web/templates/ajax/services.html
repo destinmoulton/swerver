@@ -13,8 +13,8 @@
         {{ range .services }}
         <tr>
             <td>{{.Name}}</td>
-            <td>{{.ResponseString}}</td>
-            <td>
+            <td class="button-column">{{.ResponseString}}</td>
+            <td class="button-column">
             {{ if .IsActive }}
                 <button class='button-warning pure-button' 
                         data-type="service" 
@@ -22,7 +22,7 @@
                         data-name="{{ .Name }}">stop</button>
             {{ end }}
             </td>
-            <td>
+            <td class="button-column">
             {{ if not .IsActive }}
                 <button class='button-success pure-button'
                         data-type="service" 
@@ -30,7 +30,7 @@
                         data-name="{{ .Name }}">start</button>
             {{ end }}
             </td>
-            <td>
+            <td class="button-column">
             {{ if .IsActive }}
                 <button class='button-secondary pure-button'
                         data-type="service" 

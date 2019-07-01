@@ -21,6 +21,11 @@ body {
     padding: 5px;
 }
 
+.pure-table td.button-column {
+    width: 50px;
+    text-align: center;
+}
+
 /*
 Add transition to containers so they can push in and out.
 */
