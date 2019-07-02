@@ -17,6 +17,11 @@
             container: "div#sw-memory-container",
             uri: "memory-usage",
             onLoad: true
+        },
+        sysinfo: {
+            container: "div#sw-sysinfo-container",
+            uri: "sysinfo",
+            onLoad: true
         }
     };
     $(function() {
