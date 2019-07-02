@@ -1,0 +1,17 @@
+{{ define "ajax/sysinfo.html"}}
+<table class="pure-table">
+    <tbody>
+        <tr>
+            <td>Uptime</td>
+            <td>{{ .daysup }} {{ .timeup }}</td>
+        </tr>
+        <tr>
+            <td>Load Average</td>
+            <td>
+                1 Min: {{ .oneminload }}, 5 Min: {{ .fiveminload }}, 15 Min:
+                {{ .fifteenminload }}
+            </td>
+        </tr>
+    </tbody>
+</table>
+{{ end }}
