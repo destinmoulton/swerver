@@ -98,10 +98,15 @@ The content `<div>` is where all your content goes.
     border-radius: 4px;
 }
 
+#sw-sysinfo-container {
+    margin-top: 10px;
+}
+#sw-memory-container {
+    margin-top: 10px;
+}
 #sw-ip-container {
     position: relative;
-    margin-top: 25px;
-    margin-left: 25px;
+    margin-top: 5px;
     padding-top: 4px;
     width: 200px;
     min-height: 44px;
@@ -112,17 +117,11 @@ The content `<div>` is where all your content goes.
 }
 
 #sw-services-container {
-    padding: 25px;
-    border-radius: 15px;
-    border: 2px solid #191818;
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 #sw-scripts-container {
-    padding: 25px;
-    border-radius: 15px;
-    border: 2px solid #191818;
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 #sw-tty-container {
@@ -131,14 +130,15 @@ The content `<div>` is where all your content goes.
     border: 2px solid #191818;
 
     background-color: #191818;
+    margin-top: 10px;
 }
 
 .sw-tty-error {
-    padding: 20px;
+    padding: 10px;
     color: red;
 }
 
 .sw-tty-output {
-    padding: 20px;
+    padding: 10px;
     color: white;
 }
