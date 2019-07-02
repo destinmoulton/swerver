@@ -1,24 +1,20 @@
 {{ define "ajax/memory.html"}}
 <table class="pure-table">
+    <thead>
+        <tr>
+            <th>Total</th>
+            <th>Used</th>
+            <th>Free</th>
+            <th>Buff/Cache</th>
+            <th>Available</th>
+        </tr>
+    </thead>
     <tbody>
         <tr>
-            <td>Total:</td>
             <td>{{ .total }}M</td>
-        </tr>
-        <tr>
-            <td>Used</td>
             <td>{{ .used }}M</td>
-        </tr>
-        <tr>
-            <td>Free</td>
             <td>{{ .free }}M</td>
-        </tr>
-        <tr>
-            <td>Buff/Cache</td>
             <td>{{ .buffcache }}M</td>
-        </tr>
-        <tr>
-            <td>Available</td>
             <td>{{ .available }}M</td>
         </tr>
     </tbody>
