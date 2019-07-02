@@ -93,13 +93,14 @@ The content `<div>` is where all your content goes.
 #sw-title-refresh {
     display: block;
     position: absolute;
-    right: 0px;
-    top: 0px;
+    right: 5px;
+    top: 5px;
     cursor: pointer;
     margin-left: 600px;
     color: #3664ad;
     font-size: 32px;
-    padding: 5px;
+    height: 32px;
+    width: 32px;
 }
 
 #sw-left-content {
