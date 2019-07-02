@@ -125,7 +125,7 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 		c.HTML(http.StatusOK, "ajax/sysinfo.html", gin.H{
 
 			"daysup":         parts[2],
-			"timeup":         parts[4],
+			"timeup":         strings.TrimRight(parts[4], ","),
 			"oneminload":     strings.TrimRight(parts[9], ","),
 			"fiveminload":    strings.TrimRight(parts[10], ","),
 			"fifteenminload": strings.TrimRight(parts[11], ","),
