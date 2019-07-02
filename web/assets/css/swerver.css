@@ -26,6 +26,9 @@ body {
     text-align: center;
 }
 
+.pure-table td.center {
+    text-align: center;
+}
 /*
 The content `<div>` is where all your content goes.
 */
