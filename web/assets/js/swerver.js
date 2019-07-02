@@ -12,6 +12,11 @@
             container: "div#sw-scripts-container",
             uri: "scripts",
             onLoad: true
+        },
+        memory: {
+            container: "div#sw-memory-container",
+            uri: "memory-usage",
+            onLoad: true
         }
     };
     $(function() {

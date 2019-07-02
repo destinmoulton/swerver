@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/capnm/sysinfo"
 	"github.com/gin-gonic/gin"
 
 	"../../../lib/commander"
@@ -89,5 +90,16 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 			"isError": isError,
 		})
 
+	})
+
+	router.GET(prefix+"/memory-usage", func(c *gin.Context) {
+
+		info := sysinfo.Get()
+
+		c.HTML(http.StatusOK, "ajax/memory.html", gin.H{
+			"TotalRam":  (info.TotalRam) / 1024,
+			"FreeRam":   info.FreeRam,
+			"BufferRam": info.BufferRam / 1024,
+		})
 	})
 }

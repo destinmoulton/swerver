@@ -1,0 +1,18 @@
+{{ define "ajax/memory.html"}}
+<table class="pure-table">
+    <tbody>
+        <tr>
+            <td>Total Memory:</td>
+            <td>{{ .TotalRam }}M</td>
+        </tr>
+        <tr>
+            <td>Buffer Memory:</td>
+            <td>{{ .BufferRam }}M</td>
+        </tr>
+        <tr>
+            <td>Free Memory</td>
+            <td>{{ .FreeRam }}M</td>
+        </tr>
+    </tbody>
+</table>
+{{ end }}
