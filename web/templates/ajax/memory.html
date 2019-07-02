@@ -2,16 +2,24 @@
 <table class="pure-table">
     <tbody>
         <tr>
-            <td>Total Memory:</td>
-            <td>{{ .TotalRam }}M</td>
+            <td>Total:</td>
+            <td>{{ .total }}M</td>
         </tr>
         <tr>
-            <td>Buffer Memory:</td>
-            <td>{{ .BufferRam }}M</td>
+            <td>Used</td>
+            <td>{{ .used }}M</td>
         </tr>
         <tr>
-            <td>Free Memory</td>
-            <td>{{ .FreeRam }}M</td>
+            <td>Free</td>
+            <td>{{ .free }}M</td>
+        </tr>
+        <tr>
+            <td>Buff/Cache</td>
+            <td>{{ .buffcache }}M</td>
+        </tr>
+        <tr>
+            <td>Available</td>
+            <td>{{ .available }}M</td>
         </tr>
     </tbody>
 </table>

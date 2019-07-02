@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/capnm/sysinfo"
 	"github.com/gin-gonic/gin"
 
 	"../../../lib/commander"
@@ -94,12 +93,22 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 
 	router.GET(prefix+"/memory-usage", func(c *gin.Context) {
 
-		info := sysinfo.Get()
+		output, err := commander.Run("free", "-m")
+
+		if err != nil {
+
+		}
+
+		memline := strings.Split(output, "\n")[1]
+		memparts := strings.Fields(memline)
 
 		c.HTML(http.StatusOK, "ajax/memory.html", gin.H{
-			"TotalRam":  (info.TotalRam) / 1024,
-			"FreeRam":   info.FreeRam,
-			"BufferRam": info.BufferRam / 1024,
+
+			"total":     memparts[1],
+			"used":      memparts[2],
+			"free":      memparts[3],
+			"buffcache": memparts[5],
+			"available": memparts[6],
 		})
 	})
 }
