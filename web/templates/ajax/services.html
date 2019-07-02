@@ -10,34 +10,46 @@
         </tr>
     </thead>
     <tbody>
-        {{ range .services }}
+        {{ range.services }}
         <tr>
             <td>{{.Name}}</td>
             <td class="button-column">{{.ResponseString}}</td>
             <td class="button-column">
-            {{ if .IsActive }}
-                <button class='button-warning pure-button' 
-                        data-type="service" 
-                        data-action="stop" 
-                        data-name="{{ .Name }}">stop</button>
-            {{ end }}
+                {{ if .IsActive }}
+                <button
+                    class="button-warning pure-button sw-ajax-button"
+                    data-action="systemctl-command"
+                    data-command="stop"
+                    data-service="{{ .Name }}"
+                >
+                    stop
+                </button>
+                {{ end }}
             </td>
             <td class="button-column">
-            {{ if not .IsActive }}
-                <button class='button-success pure-button'
-                        data-type="service" 
-                        data-action="start" 
-                        data-name="{{ .Name }}">start</button>
-            {{ end }}
+                {{ if not .IsActive }}
+                <button
+                    class="button-success pure-button sw-ajax-button"
+                    data-action="systemctl-command"
+                    data-command="start"
+                    data-service="{{ .Name }}"
+                >
+                    start
+                </button>
+                {{ end }}
             </td>
             <td class="button-column">
-            {{ if .IsActive }}
-                <button class='button-secondary pure-button'
-                        data-type="service" 
-                        data-action="restart" 
-                        data-name="{{ .Name }}">restart</button>
-            {{ end }}
-            </td>           
+                {{ if .IsActive }}
+                <button
+                    class="button-secondary pure-button sw-ajax-button"
+                    data-action="systemctl-command"
+                    data-command="restart"
+                    data-service="{{ .Name }}"
+                >
+                    restart
+                </button>
+                {{ end }}
+            </td>
         </tr>
         {{ end }}
     </tbody>
