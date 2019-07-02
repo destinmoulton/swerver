@@ -102,6 +102,7 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 			lines = strings.Split(output, "\n")
 		}
 		c.HTML(http.StatusOK, "ajax/tty.html", gin.H{
+			"script":  script,
 			"lines":   lines,
 			"isError": isError,
 		})

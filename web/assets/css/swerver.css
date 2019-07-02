@@ -158,18 +158,28 @@ The content `<div>` is where all your content goes.
 #sw-tty-container {
     position: relative;
     padding: 5px;
-    border: 2px solid #191818;
 
-    background-color: #191818;
     margin-top: 10px;
+    font-family: "Courier New", Courier, monospace;
 }
 
-.sw-tty-error {
+.sw-tty-block {
     padding: 10px;
+    margin-bottom: 10px;
+    background-color: #191818;
+}
+
+.sw-tty-command {
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+    color: #c9c9c9;
+    font-weight: bold;
+}
+.sw-tty-error {
     color: red;
+    font-weight: bold;
 }
 
 .sw-tty-output {
-    padding: 10px;
     color: white;
 }
