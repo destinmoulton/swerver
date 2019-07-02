@@ -77,6 +77,26 @@
             });
     }
 
+    function ajaxSystemctlCommand(service, command) {
+        const serviceURI = encodeURIComponent(service);
+        const commandURI = encodeURIComponent(command);
+        const url = `/ajax/service-command?service=${serviceURI}&command=${commandURI}`;
+        fetch(url)
+            .then(resp => {
+                return resp.json();
+            })
+            .then(json => {
+                if (json.status === "ok") {
+                    loadAllAjax();
+                }
+            })
+            .catch(err => {
+                console.log(
+                    `ajaxSystemctlCommand() :: Error running script ${url}`
+                );
+            });
+    }
+
     function setupListenersOnAjaxButtons() {
         $(".sw-ajax-button").off();
         $(".sw-ajax-button").on("click", evt => {
@@ -86,6 +106,11 @@
                 case "run-script":
                     const script = $target.data("script");
                     ajaxRunScript(script);
+                    break;
+                case "systemctl-command":
+                    const service = $target.data("service");
+                    const command = $target.data("command");
+                    ajaxSystemctlCommand(service, command);
                     break;
                 default:
                     break;
