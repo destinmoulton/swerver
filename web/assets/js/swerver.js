@@ -81,6 +81,7 @@
         const serviceURI = encodeURIComponent(service);
         const commandURI = encodeURIComponent(command);
         const url = `/ajax/service-command?service=${serviceURI}&command=${commandURI}`;
+        showLoading(ajaxCalls.services.container);
         fetch(url)
             .then(resp => {
                 return resp.json();
