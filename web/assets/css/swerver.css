@@ -91,10 +91,15 @@ The content `<div>` is where all your content goes.
     padding-left: 15px;
 }
 #sw-title-refresh {
-    display: inline-block;
-    height: 32px;
-    width: 32px;
+    display: block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
     cursor: pointer;
+    margin-left: 600px;
+    color: #3664ad;
+    font-size: 32px;
+    padding: 5px;
 }
 
 #sw-left-content {

@@ -27,10 +27,14 @@
     $(function() {
         console.log("running");
 
-        loadInitialAjax();
+        loadAllAjax();
+
+        $("#sw-title-refresh").on("click", () => {
+            loadAllAjax();
+        });
     });
 
-    function loadInitialAjax() {
+    function loadAllAjax() {
         const endKeys = Object.keys(ajaxCalls);
 
         for (let key of endKeys) {
