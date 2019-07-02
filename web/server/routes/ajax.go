@@ -3,6 +3,8 @@ package routes
 import (
 	"io/ioutil"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -62,9 +64,24 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 	})
 
 	router.GET(prefix+"/scripts", func(c *gin.Context) {
+		var files []string
+		err := filepath.Walk(settings.ScriptsPath, func(path string, info os.FileInfo, err error) error {
+			if info.IsDir() {
+				return nil
+			}
+			if filepath.Ext(path) != ".sh" {
+				return nil
+			}
+
+			files = append(files, info.Name())
+			return nil
+		})
+		if err != nil {
+			panic(err)
+		}
 
 		c.HTML(http.StatusOK, "ajax/scripts.html", gin.H{
-			"scripts": settings.Scripts,
+			"scripts": files,
 			"path":    settings.ScriptsPath,
 		})
 	})
