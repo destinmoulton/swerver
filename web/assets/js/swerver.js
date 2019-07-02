@@ -65,12 +65,14 @@
     function ajaxRunScript(script) {
         const encoded = encodeURIComponent(script);
         const url = `/ajax/run-script?script=${encoded}`;
+        showLoading(ajaxCalls.scripts.container);
         fetch(url)
             .then(resp => {
                 return resp.text();
             })
             .then(html => {
                 $("#sw-tty-container").prepend(html);
+                loadAllAjax();
             })
             .catch(err => {
                 console.log(`ajaxRunScript() :: Error running script ${url}`);
