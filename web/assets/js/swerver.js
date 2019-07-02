@@ -65,14 +65,14 @@
     function ajaxRunScript(script) {
         const encoded = encodeURIComponent(script);
         const url = `/ajax/run-script?script=${encoded}`;
-        showLoading(ajaxCalls.scripts.container);
+        showLoading(ajaxCalls.scripts.container, "Running...");
         fetch(url)
             .then(resp => {
                 return resp.text();
             })
             .then(html => {
                 $("#sw-tty-container").prepend(html);
-                loadAllAjax();
+                ajaxCall(ajaxCalls.scripts);
             })
             .catch(err => {
                 console.log(`ajaxRunScript() :: Error running script ${url}`);
@@ -83,14 +83,14 @@
         const serviceURI = encodeURIComponent(service);
         const commandURI = encodeURIComponent(command);
         const url = `/ajax/service-command?service=${serviceURI}&command=${commandURI}`;
-        showLoading(ajaxCalls.services.container);
+        showLoading(ajaxCalls.services.container, "Running...");
         fetch(url)
             .then(resp => {
                 return resp.json();
             })
             .then(json => {
                 if (json.status === "ok") {
-                    loadAllAjax();
+                    ajaxCall(ajaxCalls.services);
                 }
             })
             .catch(err => {
@@ -120,9 +120,9 @@
             }
         });
     }
-    function showLoading(container) {
+    function showLoading(container, message = "Loading...") {
         $(container).html(
-            "<div class='sw-loading'><img src='/assets/graphics/loading-64x64.gif'/><br>Loading...</div>"
+            `<div class='sw-loading'><img src='/assets/graphics/loading-64x64.gif'/><br>${message}</div>`
         );
     }
 })(window, document, cash);
