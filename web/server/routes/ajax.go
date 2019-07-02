@@ -2,11 +2,13 @@ package routes
 
 import (
 	"io/ioutil"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/capnm/sysinfo"
 	"github.com/gin-gonic/gin"
 
 	"../../../lib/commander"
@@ -60,6 +62,21 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 		c.HTML(http.StatusOK, "ajax/services.html", gin.H{
 			"services": services,
 			"error":    error,
+		})
+	})
+
+	router.GET(prefix+"/service-command", func(c *gin.Context) {
+
+		service := c.Query("service")
+		command := c.Query("command")
+		err := commander.SystemCtlCommand(service, command)
+		status := "ok"
+		if err != nil {
+
+			status = "error"
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"status": status,
 		})
 	})
 
@@ -132,21 +149,13 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 
 	router.GET(prefix+"/sysinfo", func(c *gin.Context) {
 
-		output, err := commander.Run("uptime")
-
-		if err != nil {
-
-		}
-
-		parts := strings.Fields(output)
-
+		info := sysinfo.Get()
 		c.HTML(http.StatusOK, "ajax/sysinfo.html", gin.H{
 
-			"daysup":         parts[2],
-			"timeup":         strings.TrimRight(parts[4], ","),
-			"oneminload":     strings.TrimRight(parts[9], ","),
-			"fiveminload":    strings.TrimRight(parts[10], ","),
-			"fifteenminload": strings.TrimRight(parts[11], ","),
+			"timeup":         info.Uptime,
+			"oneminload":     math.Round(info.Loads[0]*100) / 100,
+			"fiveminload":    math.Round(info.Loads[1]*100) / 100,
+			"fifteenminload": math.Round(info.Loads[2]*100) / 100,
 		})
 	})
 }
