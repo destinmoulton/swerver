@@ -69,7 +69,32 @@ The content `<div>` is where all your content goes.
     position: relative;
     left: 0;
     padding-left: 0;
-    width: 1090px;
+    width: 1240px;
+}
+#sw-header {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    vertical-align: bottom;
+    border-bottom: 2px solid pink;
+}
+#sw-title {
+    display: inline-block;
+    font-size: 36px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#sw-title-biline {
+    display: inline-block;
+    font-size: 18px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-left: 15px;
+}
+#sw-title-refresh {
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
 }
 
 #sw-left-content {
@@ -81,7 +106,7 @@ The content `<div>` is where all your content goes.
 
 #sw-right-content {
     margin-left: 10px;
-    width: 500px;
+    width: 700px;
     display: inline-block;
     vertical-align: top;
 }
