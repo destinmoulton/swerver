@@ -39,7 +39,7 @@ func SystemCtlStatus(service string) string {
 // SystemCtlCommand runs a systemctl command on a service
 func SystemCtlCommand(service string, command string) error {
 
-	_, err := Run("systemctl", command, service)
+	_, err := Run("sudo", "systemctl", command, service)
 
 	if err != nil {
 		return err
