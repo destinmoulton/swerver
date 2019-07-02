@@ -12,7 +12,7 @@ body {
 }
 
 .pure-table th {
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     padding: 5px;
 }
@@ -112,7 +112,7 @@ The content `<div>` is where all your content goes.
 
 #sw-right-content {
     margin-left: 10px;
-    width: 700px;
+    width: 710px;
     display: inline-block;
     vertical-align: top;
 }
@@ -159,7 +159,7 @@ The content `<div>` is where all your content goes.
     position: relative;
     padding: 5px;
 
-    margin-top: 10px;
+    margin-top: 5px;
     font-family: "Courier New", Courier, monospace;
 }
 
