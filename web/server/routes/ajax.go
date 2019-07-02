@@ -111,4 +111,24 @@ func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
 			"available": memparts[6],
 		})
 	})
+
+	router.GET(prefix+"/sysinfo", func(c *gin.Context) {
+
+		output, err := commander.Run("uptime")
+
+		if err != nil {
+
+		}
+
+		parts := strings.Fields(output)
+
+		c.HTML(http.StatusOK, "ajax/sysinfo.html", gin.H{
+
+			"daysup":         parts[2],
+			"timeup":         parts[4],
+			"oneminload":     strings.TrimRight(parts[9], ","),
+			"fiveminload":    strings.TrimRight(parts[10], ","),
+			"fifteenminload": strings.TrimRight(parts[11], ","),
+		})
+	})
 }
