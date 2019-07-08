@@ -1,4 +1,4 @@
-package configparser
+package config
 
 import (
 	"encoding/json"
