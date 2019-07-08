@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"../configparser"
+	"../config"
 )
 
 // Run a shell command
@@ -49,7 +49,7 @@ func SystemCtlCommand(service string, command string) error {
 }
 
 // RunScript runs the specified script
-func RunScript(settings configparser.Configuration, scriptToRun string) (string, error) {
+func RunScript(settings config.Configuration, scriptToRun string) (string, error) {
 
 	path := filepath.Join(settings.ScriptsPath, scriptToRun)
 	if _, err := os.Stat(path); os.IsNotExist(err) {

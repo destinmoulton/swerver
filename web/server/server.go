@@ -1,22 +1,25 @@
 package server
 
 import (
-	"../../lib/configparser"
+	"path"
+
+	"../../lib/config"
 	"./routes"
 	"github.com/gin-gonic/gin"
 )
 
 // Run starts the gin server
-func Run(settings configparser.Configuration) {
+func Run(settings config.Configuration) {
 
 	r := gin.Default()
 
-	r.LoadHTMLGlob(settings.TemplatesGlob)
+	glob := path.Join(settings.TemplatesPath, "**", "*.html")
+	r.LoadHTMLGlob(glob)
 
 	r.Static("/assets", settings.AssetsPath)
 
 	routes.HTMLRoutes(r)
 	routes.AJAXRoutes(r, settings)
 
-	r.Run(settings.Port)
+	r.Run(":" + settings.Port)
 }

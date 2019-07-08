@@ -12,7 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"../../../lib/commander"
-	"../../../lib/configparser"
+	"../../../lib/config"
 )
 
 type service struct {
@@ -22,7 +22,7 @@ type service struct {
 }
 
 // AJAXRoutes creates the basic routes for ajax calls
-func AJAXRoutes(router *gin.Engine, settings configparser.Configuration) {
+func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 	prefix := "/ajax"
 	router.GET(prefix+"/ip", func(c *gin.Context) {
 		resp, err := http.Get("https://ipinfo.io/ip")
