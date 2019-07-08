@@ -16,7 +16,7 @@ func Run(settings config.Configuration) {
 	glob := path.Join(settings.TemplatesPath, "**", "*.html")
 	r.LoadHTMLGlob(glob)
 
-	r.Static("/assets", settings.AssetsPath)
+	r.Static("/static", settings.StaticPath)
 
 	routes.HTMLRoutes(r)
 	routes.AJAXRoutes(r, settings)

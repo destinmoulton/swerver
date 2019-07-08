@@ -12,7 +12,7 @@ import (
 // Configuration struct contains the json decoded options
 type Configuration struct {
 	Port          string
-	AssetsPath    string
+	StaticPath    string
 	Services      []string
 	ScriptsPath   string
 	TemplatesPath string
@@ -34,7 +34,7 @@ func LoadConfig() Configuration {
 
 	return Configuration{
 		Port:          portEnv,
-		AssetsPath:    path.Join(pathEnv, "web", "assets"),
+		StaticPath:    path.Join(pathEnv, "web", "static"),
 		ScriptsPath:   path.Join(pathEnv, "scripts"),
 		Services:      services,
 		TemplatesPath: path.Join(pathEnv, "web", "templates"),
