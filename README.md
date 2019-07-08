@@ -4,7 +4,7 @@ Swerver is a basic server management utility that provides a web interface for m
 
 **Features:**
 
--   Run scripts
+-   Run scripts with terminal output for the command
 -   Monitor, start, and stop services
 -   System information including memory usage, uptime, and average load
 
