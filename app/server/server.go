@@ -3,7 +3,7 @@ package server
 import (
 	"path"
 
-	"../../lib/config"
+	"../lib/config"
 	"./routes"
 	"github.com/gin-gonic/gin"
 )

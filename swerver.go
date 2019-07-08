@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./lib/config"
-	"./web/server"
+	"./app/lib/config"
+	"./app/server"
 )
 
 func main() {

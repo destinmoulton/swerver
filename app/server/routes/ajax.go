@@ -11,8 +11,8 @@ import (
 	"github.com/capnm/sysinfo"
 	"github.com/gin-gonic/gin"
 
-	"../../../lib/commander"
-	"../../../lib/config"
+	"../../lib/commander"
+	"../../lib/config"
 )
 
 type service struct {
