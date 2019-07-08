@@ -1,3 +1,4 @@
 config/config.json
 scripts
 test.http
+.env
