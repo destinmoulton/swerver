@@ -16,6 +16,7 @@ type Configuration struct {
 	Services      []string
 	ScriptsPath   string
 	TemplatesPath string
+	IPLookupURL   string
 }
 
 // LoadConfig loads the Config struct via configPath
@@ -27,6 +28,7 @@ func LoadConfig() Configuration {
 	portEnv := getEnv("SWERVER_PORT")
 	pathEnv := getEnv("SWERVER_PATH")
 	servicesEnv := getEnv("SWERVER_SERVICES")
+	iplookupEnv := getEnv("SWERVER_IPLOOKUP_URL")
 
 	services := strings.Split(servicesEnv, ",")
 
@@ -36,6 +38,7 @@ func LoadConfig() Configuration {
 		ScriptsPath:   path.Join(pathEnv, "scripts"),
 		Services:      services,
 		TemplatesPath: path.Join(pathEnv, "web", "templates"),
+		IPLookupURL:   iplookupEnv,
 	}
 }
 

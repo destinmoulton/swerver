@@ -25,7 +25,7 @@ type service struct {
 func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 	prefix := "/ajax"
 	router.GET(prefix+"/ip", func(c *gin.Context) {
-		resp, err := http.Get("https://ipinfo.io/ip")
+		resp, err := http.Get(settings.IPLookupURL)
 		defer resp.Body.Close()
 		error := ""
 		ip := ""
