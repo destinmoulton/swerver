@@ -1,35 +1,48 @@
 package config
 
 import (
-	"encoding/json"
 	"log"
 	"os"
+	"path"
+	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 // Configuration struct contains the json decoded options
 type Configuration struct {
 	Port          string
 	AssetsPath    string
-	TemplatesGlob string
 	Services      []string
 	ScriptsPath   string
-	Scripts       []string
+	TemplatesPath string
 }
 
 // LoadConfig loads the Config struct via configPath
-func LoadConfig(configPath string) Configuration {
-	file, err := os.Open(configPath)
-	defer file.Close()
-
-	if err != nil {
-		log.Fatal(err)
+func LoadConfig() Configuration {
+	// loads values from .env into the system
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("No .env file found")
 	}
+	portEnv := getEnv("SWERVER_PORT")
+	pathEnv := getEnv("SWERVER_PATH")
+	servicesEnv := getEnv("SWERVER_SERVICES")
 
-	decoder := json.NewDecoder(file)
-	config := Configuration{}
-	derr := decoder.Decode(&config)
-	if derr != nil {
-		log.Fatal(derr)
+	services := strings.Split(servicesEnv, ",")
+
+	return Configuration{
+		Port:          portEnv,
+		AssetsPath:    path.Join(pathEnv, "web", "assets"),
+		ScriptsPath:   path.Join(pathEnv, "scripts"),
+		Services:      services,
+		TemplatesPath: path.Join(pathEnv, "web", "templates"),
 	}
-	return config
+}
+
+func getEnv(key string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	log.Fatal("No .env value found for " + key)
+	return ""
 }
