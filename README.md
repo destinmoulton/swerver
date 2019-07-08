@@ -66,7 +66,3 @@ $ sudo systemctl status swerver
 ### License
 
 Swerver is open source under the MIT license.
-
-```
-
-```
