@@ -3,6 +3,7 @@ package routes
 import (
 	"io/ioutil"
 	"math"
+	"net"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -30,7 +31,9 @@ func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 		resp, err := client.Get(settings.IPLookupURL)
 		error := ""
 		ip := ""
-		if err != nil {
+		if err, ok := err.(net.Error); ok && err.Timeout() {
+			error = "Unable to reach the IP address server."
+		} else if err != nil {
 			error = "Unable to get IP Address."
 		} else {
 			if resp.StatusCode == 200 {
@@ -41,7 +44,7 @@ func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 					ip = string(body)
 				}
 			} else {
-				error = "Unable to reach the IP server."
+				error = "Unable to get the ip address."
 			}
 		}
 
