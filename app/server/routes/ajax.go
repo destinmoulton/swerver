@@ -33,11 +33,15 @@ func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 		if err != nil {
 			error = "Unable to get IP Address."
 		} else {
-			body, rerr := ioutil.ReadAll(resp.Body)
-			if rerr != nil {
-				error = "Error parsing IP address response."
+			if resp.StatusCode == 200 {
+				body, rerr := ioutil.ReadAll(resp.Body)
+				if rerr != nil {
+					error = "Error parsing IP address response."
+				} else {
+					ip = string(body)
+				}
 			} else {
-				ip = string(body)
+				error = "Unable to reach the IP server."
 			}
 		}
 
