@@ -3,9 +3,7 @@ package routes
 import (
 	"io/ioutil"
 	"math"
-	"net"
 	"net/http"
-	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -28,23 +26,21 @@ type service struct {
 func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 	prefix := "/ajax"
 	router.GET(prefix+"/ip", func(c *gin.Context) {
+
 		client := http.Client{Timeout: time.Duration(5 * time.Second)}
 		resp, err := client.Get(settings.IPLookupURL)
+		defer func() {
+			if resp != nil {
+
+				resp.Body.Close()
+			}
+		}()
 		errorMsg := ""
 		ip := ""
 
-		switch err := err.(type) {
-		case net.Error:
-			if err.Timeout() {
-				errorMsg = "IP address url timeout detected."
-			}
-		case *url.Error:
-			errorMsg = "There was a url error"
-			if err, ok := err.Err.(net.Error); ok && err.Timeout() {
-				errorMsg = errorMsg + "and it was because of a timeout"
-			}
-		}
-		if err == nil {
+		if err != nil {
+			errorMsg = err.Error()
+		} else {
 			if resp.StatusCode == 200 {
 				body, rerr := ioutil.ReadAll(resp.Body)
 				if rerr != nil {
@@ -52,16 +48,17 @@ func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 				} else {
 					ip = string(body)
 				}
+
 			} else {
 				errorMsg = "Unable to get the ip address."
 			}
 		}
 
-		defer resp.Body.Close()
 		c.HTML(http.StatusOK, "ajax/ip.html", gin.H{
 			"ip":    ip,
 			"error": errorMsg,
 		})
+
 	})
 
 	router.GET(prefix+"/services", func(c *gin.Context) {
