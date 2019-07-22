@@ -5,6 +5,7 @@ import (
 	"math"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -31,11 +32,19 @@ func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 		resp, err := client.Get(settings.IPLookupURL)
 		error := ""
 		ip := ""
-		if err, ok := err.(net.Error); ok && err.Timeout() {
-			error = "Unable to reach the IP address server."
-		} else if err != nil {
-			error = "Unable to get IP Address."
-		} else {
+
+		switch err := err.(type) {
+		case net.Error:
+			if err.Timeout() {
+				error = "IP address url timeout detected."
+			}
+		case *url.Error:
+			error = "There was a url error"
+			if err, ok := err.Err.(net.Error); ok && err.Timeout() {
+				error = error + "and it was because of a timeout"
+			}
+		}
+		if err == nil {
 			if resp.StatusCode == 200 {
 				body, rerr := ioutil.ReadAll(resp.Body)
 				if rerr != nil {
