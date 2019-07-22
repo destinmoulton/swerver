@@ -30,37 +30,37 @@ func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 	router.GET(prefix+"/ip", func(c *gin.Context) {
 		client := http.Client{Timeout: time.Duration(5 * time.Second)}
 		resp, err := client.Get(settings.IPLookupURL)
-		error := ""
+		errorMsg := ""
 		ip := ""
 
 		switch err := err.(type) {
 		case net.Error:
 			if err.Timeout() {
-				error = "IP address url timeout detected."
+				errorMsg = "IP address url timeout detected."
 			}
 		case *url.Error:
-			error = "There was a url error"
+			errorMsg = "There was a url error"
 			if err, ok := err.Err.(net.Error); ok && err.Timeout() {
-				error = error + "and it was because of a timeout"
+				errorMsg = errorMsg + "and it was because of a timeout"
 			}
 		}
 		if err == nil {
 			if resp.StatusCode == 200 {
 				body, rerr := ioutil.ReadAll(resp.Body)
 				if rerr != nil {
-					error = "Error parsing IP address response."
+					errorMsg = "Error parsing IP address response."
 				} else {
 					ip = string(body)
 				}
 			} else {
-				error = "Unable to get the ip address."
+				errorMsg = "Unable to get the ip address."
 			}
 		}
 
 		defer resp.Body.Close()
 		c.HTML(http.StatusOK, "ajax/ip.html", gin.H{
 			"ip":    ip,
-			"error": error,
+			"error": errorMsg,
 		})
 	})
 
