@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/capnm/sysinfo"
 	"github.com/gin-gonic/gin"
@@ -25,8 +26,8 @@ type service struct {
 func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 	prefix := "/ajax"
 	router.GET(prefix+"/ip", func(c *gin.Context) {
-		resp, err := http.Get(settings.IPLookupURL)
-		defer resp.Body.Close()
+		client := http.Client{Timeout: 5 * time.Second}
+		resp, err := client.Get(settings.IPLookupURL)
 		error := ""
 		ip := ""
 		if err != nil {
@@ -39,6 +40,8 @@ func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
 				ip = string(body)
 			}
 		}
+
+		defer resp.Body.Close()
 		c.HTML(http.StatusOK, "ajax/ip.html", gin.H{
 			"ip":    ip,
 			"error": error,
