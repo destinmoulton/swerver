@@ -65,6 +65,14 @@ The content `<div>` is where all your content goes.
     background: rgb(66, 184, 221); /* this is a light blue */
 }
 
+.error {
+    border: 2px solid maroon;
+    padding: 4px;
+    color: maroon;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 #sw-layout {
     position: relative;
     left: 0;
