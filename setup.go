@@ -1,55 +1,35 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"log"
+	"os"
 
-	"github.com/manifoldco/promptui"
+	"./app/setup/prompts"
 )
 
 func main() {
 
-	port := promptPort()
-	password := promptPassword()
+	port := prompts.Port()
+	password := prompts.Password()
+	prompts.ConfirmPassword()
 
 	fmt.Printf("The setup has been saved to .env")
 
 }
 
-func promptPort() string {
+func writeConfig(port string, path string, services string, iplookup string) {
 
-	prompt := promptui.Prompt{
-		Label: "Port (default is 9090)",
-	}
-
-	result, err := prompt.Run()
+	f, err := os.OpenFile(".env", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
 	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return ""
+		log.Println(err)
 	}
 
-	return result
-}
-func promptPassword() string {
+	defer f.Close()
+	f.WriteString(fmt.Sprintf("SWERVER_PORT=%v\n", port))
+	f.WriteString(fmt.Sprintf("SWERVER_PATH=%v\n", path))
+	f.WriteString(fmt.Sprintf("SWERVER_SERVICES=%v\n", services))
+	f.WriteString(fmt.Sprintf("SWERVER_IPLOOKUP_URL=%v\n", iplookup))
 
-	prompt := promptui.Prompt{
-		Label:    "Password",
-		Validate: validatePassword,
-		Mask:     '*',
-	}
-
-	result, err := prompt.Run()
-
-	if err != nil {
-		fmt.Printf("Prompt failed %v\n", err)
-		return ""
-	}
-	return result
-}
-func validatePassword(input string) error {
-	if len(input) == 0 {
-		return errors.New("You must include a password")
-	}
-	return nil
 }
