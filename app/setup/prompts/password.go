@@ -18,7 +18,8 @@ func Password() string {
 		Mask:     '*',
 	}
 
-	password, err := prompt.Run()
+	pw, err := prompt.Run()
+	password = pw
 
 	if err != nil {
 		fmt.Printf("Prompt failed %v\n", err)
