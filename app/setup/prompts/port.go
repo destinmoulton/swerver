@@ -1,6 +1,7 @@
 package prompts
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/manifoldco/promptui"
@@ -10,8 +11,9 @@ import (
 func Port(defaultPort string) string {
 
 	prompt := promptui.Prompt{
-		Default: defaultPort,
-		Label:   "Port",
+		Default:  defaultPort,
+		Label:    "Port",
+		Validate: validatePort,
 	}
 
 	result, err := prompt.Run()
@@ -22,4 +24,11 @@ func Port(defaultPort string) string {
 	}
 
 	return result
+}
+
+func validatePort(input string) error {
+	if len(input) == 0 {
+		return errors.New("You must include a port")
+	}
+	return nil
 }
