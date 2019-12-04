@@ -18,14 +18,15 @@ var configFileType = "toml"
 
 // Configuration struct contains the json decoded options
 type Configuration struct {
-	Port          string
-	StaticPath    string
-	Services      []string
-	ScriptsPath   string
-	TemplatesPath string
-	IPLookupURL   string
-	Username      string
-	PasswordHash  string
+	Port             string
+	Services         []string
+	ScriptsPath      string
+	WebPath          string
+	WebStaticPath    string
+	WebTemplatesPath string
+	IPLookupURL      string
+	Username         string
+	PasswordHash     string
 }
 
 func init() {
@@ -69,15 +70,21 @@ func LoadConfig() Configuration {
 	services := strings.Split(servicesToMonitor, ",")
 
 	return Configuration{
-		Port:          port,
-		StaticPath:    path.Join(webPath, "static"),
-		ScriptsPath:   scriptsPath,
-		Services:      services,
-		TemplatesPath: path.Join(webPath, "templates"),
-		IPLookupURL:   iplookupURL,
-		Username:      username,
-		PasswordHash:  passwordHash,
+		Port:             port,
+		ScriptsPath:      scriptsPath,
+		Services:         services,
+		WebPath:          webPath,
+		WebTemplatesPath: path.Join(webPath, "templates"),
+		WebStaticPath:    path.Join(webPath, "static"),
+		IPLookupURL:      iplookupURL,
+		Username:         username,
+		PasswordHash:     passwordHash,
 	}
+}
+
+// GetSingle returns the config value at <key>
+func GetSingle(key string) string {
+	return viper.GetString(key)
 }
 
 // Save the config
