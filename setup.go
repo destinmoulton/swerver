@@ -2,6 +2,7 @@ package main
 
 import (
 	"./app/lib/config"
+	"./app/lib/pw"
 	"./app/setup/prompts"
 )
 
@@ -16,8 +17,10 @@ func main() {
 	options["web_path"] = prompts.WebPath(config.GetSingle("web_path"))
 	options["services_to_monitor"] = prompts.Services(config.GetSingle("services_to_monitor"))
 	options["username"] = prompts.Username(config.GetSingle("username"))
-	options["password"] = prompts.Password()
-	prompts.ConfirmPassword()
+	password := prompts.Password()
+	if prompts.ConfirmPassword() != "" {
+		options["password"] = pw.GenerateHash(password)
+	}
 
 	config.Save(options)
 }
