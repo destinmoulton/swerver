@@ -92,11 +92,10 @@ func loadDefaults() {
 		log.Println(err)
 	}
 	viper.SetDefault("port", "8080")
-	viper.SetDefault("path", path)
 	viper.SetDefault("scripts_path", filepath.Join(path, "scripts"))
 	viper.SetDefault("web_path", filepath.Join(path, "web"))
 	viper.SetDefault("services_to_monitor", "")
-	viper.SetDefault("ip_lookup_url", "")
+	viper.SetDefault("ip_lookup_url", "https://ipecho.net/plain")
 	viper.SetDefault("username", "")
 	viper.SetDefault("password", "")
 }
