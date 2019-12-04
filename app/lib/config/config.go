@@ -63,6 +63,8 @@ func LoadConfig() Configuration {
 	servicesToMonitor := viper.GetString("services_to_monitor")
 	iplookupURL := viper.GetString("ip_lookup_url")
 	webPath := viper.GetString("web_path")
+	username := viper.GetString("username")
+	passwordHash := viper.GetString("password")
 
 	services := strings.Split(servicesToMonitor, ",")
 
@@ -73,7 +75,14 @@ func LoadConfig() Configuration {
 		Services:      services,
 		TemplatesPath: path.Join(webPath, "templates"),
 		IPLookupURL:   iplookupURL,
+		Username:      username,
+		PasswordHash:  passwordHash,
 	}
+}
+
+// Save the config
+func Save(options map[string]string) {
+
 }
 
 func loadDefaults() {
