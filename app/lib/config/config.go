@@ -22,6 +22,7 @@ type Configuration struct {
 }
 
 func init() {
+	viper.SetConfigType("toml")
 	viper.SetConfigName("swerver.config")
 	viper.AddConfigPath("$HOME/.config/swerver")
 	err := viper.ReadInConfig()
