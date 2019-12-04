@@ -7,10 +7,11 @@ import (
 )
 
 // Port generates a prompt for the default port
-func Port() string {
+func Port(defaultPort string) string {
 
 	prompt := promptui.Prompt{
-		Label: "Port (default is 9090)",
+		Default: defaultPort,
+		Label:   "Port",
 	}
 
 	result, err := prompt.Run()
