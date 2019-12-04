@@ -15,8 +15,9 @@ func main() {
 	confDefaults := config.LoadConfig()
 	fmt.Println(confDefaults.Port)
 
-	options["port"] := prompts.Port(confDefaults.Port)
-	options["password"] := prompts.Password()
+	options["port"] = prompts.Port(confDefaults.Port)
+	options["username"] = prompts.Username(confDefaults.Username)
+	options["password"] = prompts.Password()
 	prompts.ConfirmPassword()
 
 	config.Save(options)
