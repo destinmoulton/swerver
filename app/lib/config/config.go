@@ -90,6 +90,11 @@ func GetSingle(key string) string {
 // Save the config
 func Save(options map[string]string) {
 
+	for k, v := range options {
+		viper.Set(k, v)
+	}
+
+	viper.WriteConfig()
 }
 
 func loadDefaults() {
