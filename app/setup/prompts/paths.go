@@ -27,6 +27,25 @@ func ScriptsPath(initialScriptPath string) string {
 	return result
 }
 
+// WebPath generates a prompt for the default port
+func WebPath(initialPath string) string {
+
+	prompt := promptui.Prompt{
+		Default:  initialPath,
+		Label:    "WebPath",
+		Validate: validatePath,
+	}
+
+	result, err := prompt.Run()
+
+	if err != nil {
+		fmt.Printf("Prompt failed %v\n", err)
+		return ""
+	}
+
+	return result
+}
+
 func validatePath(input string) error {
 	if len(input) == 0 {
 		return errors.New("You must include a valid path")
