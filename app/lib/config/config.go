@@ -1,12 +1,14 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
-	"github.com/joho/godotenv"
+	"github.com/spf13/viper"
 )
 
 // Configuration struct contains the json decoded options
@@ -19,33 +21,47 @@ type Configuration struct {
 	IPLookupURL   string
 }
 
-// LoadConfig loads the Config struct via configPath
-func LoadConfig() Configuration {
-	// loads values from .env into the system
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("No .env file found")
-	}
-	portEnv := getEnv("SWERVER_PORT")
-	pathEnv := getEnv("SWERVER_PATH")
-	servicesEnv := getEnv("SWERVER_SERVICES")
-	iplookupEnv := getEnv("SWERVER_IPLOOKUP_URL")
+func init() {
+	viper.SetConfigName("swerver.config")
+	viper.AddConfigPath("$HOME/.config/swerver")
+	err := viper.ReadInConfig()
 
-	services := strings.Split(servicesEnv, ",")
-
-	return Configuration{
-		Port:          portEnv,
-		StaticPath:    path.Join(pathEnv, "web", "static"),
-		ScriptsPath:   path.Join(pathEnv, "scripts"),
-		Services:      services,
-		TemplatesPath: path.Join(pathEnv, "web", "templates"),
-		IPLookupURL:   iplookupEnv,
+	if err != nil {
+		panic(fmt.Errorf("Fatal error cannot find config file: %s", err))
 	}
 }
 
-func getEnv(key string) string {
-	if value, exists := os.LookupEnv(key); exists {
-		return value
+// LoadConfig loads the Config struct via configPath
+func LoadConfig() Configuration {
+
+	loadDefaults()
+
+	port := viper.Get("port").(string)
+	scriptsPath := viper.Get("scripts_path").(string)
+	servicesToMonitor := viper.Get("services_to_monitor").(string)
+	iplookupURL := viper.Get("ip_lookup_url").(string)
+	webPath := viper.Get("web_path").(string)
+
+	services := strings.Split(servicesToMonitor, ",")
+
+	return Configuration{
+		Port:          port,
+		StaticPath:    path.Join(webPath, "static"),
+		ScriptsPath:   scriptsPath,
+		Services:      services,
+		TemplatesPath: path.Join(webPath, "templates"),
+		IPLookupURL:   iplookupURL,
 	}
-	log.Fatal("No .env value found for " + key)
-	return ""
+}
+
+func loadDefaults() {
+
+	path, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	viper.SetDefault("port", "8080")
+	viper.SetDefault("path", path)
+	viper.SetDefault("scripts_path", filepath.Join(path, "scripts"))
+	viper.SetDefault("web_path", filepath.Join(path, "web"))
 }
