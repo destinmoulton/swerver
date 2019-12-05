@@ -10,6 +10,8 @@ import (
 	"strings"
 
 	"github.com/spf13/viper"
+
+	"../rando"
 )
 
 var configPath = ""
@@ -27,6 +29,7 @@ type Configuration struct {
 	IPLookupURL      string
 	Username         string
 	PasswordHash     string
+	CryptoSecret     string
 }
 
 func init() {
@@ -66,6 +69,7 @@ func LoadConfig() Configuration {
 	webPath := viper.GetString("web_path")
 	username := viper.GetString("username")
 	passwordHash := viper.GetString("password")
+	cryptoSecret := viper.GetString("crypto_secret")
 
 	services := strings.Split(servicesToMonitor, ",")
 
@@ -79,6 +83,7 @@ func LoadConfig() Configuration {
 		IPLookupURL:      iplookupURL,
 		Username:         username,
 		PasswordHash:     passwordHash,
+		CryptoSecret:     cryptoSecret,
 	}
 }
 
@@ -89,7 +94,6 @@ func GetSingle(key string) string {
 
 // Save the config
 func Save(options map[string]string) {
-
 	for k, v := range options {
 		viper.Set(k, v)
 	}
@@ -108,6 +112,7 @@ func loadDefaults() {
 	viper.SetDefault("web_path", filepath.Join(path, "web"))
 	viper.SetDefault("services_to_monitor", "")
 	viper.SetDefault("ip_lookup_url", "https://ipecho.net/plain")
+	viper.SetDefault("crypto_secret", rando.GenerateRandomString(20))
 	viper.SetDefault("username", "")
 	viper.SetDefault("password", "")
 }

@@ -16,6 +16,7 @@ func main() {
 	options["scripts_path"] = prompts.ScriptsPath(config.GetSingle("scripts_path"))
 	options["web_path"] = prompts.WebPath(config.GetSingle("web_path"))
 	options["services_to_monitor"] = prompts.Services(config.GetSingle("services_to_monitor"))
+	options["crypto_secret"] = prompts.Secret(config.GetSingle("crypto_secret"))
 	options["username"] = prompts.Username(config.GetSingle("username"))
 	password := prompts.Password()
 	if prompts.ConfirmPassword() != "" {
