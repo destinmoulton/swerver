@@ -1,4 +1,4 @@
-package config
+package settings
 
 import (
 	"fmt"
@@ -12,7 +12,6 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/destinmoulton/swerver/app/lib/rando"
-	"github.com/destinmoulton/swerver/app/setup"
 )
 
 var configPath = ""
@@ -46,7 +45,7 @@ func init() {
 	if !doesConfigDirExist() {
 		fmt.Println("config dir doesn't exist")
 		createConfigDirAndFile()
-		setup.PromptConfig()
+		PromptConfig()
 	}
 
 	viper.SetConfigType(configFileType)
@@ -89,12 +88,12 @@ func LoadConfig() Configuration {
 }
 
 // GetSingle returns the config value at <key>
-func GetSingle(key string) string {
+func GetSingleConfigValue(key string) string {
 	return viper.GetString(key)
 }
 
 // Save the config
-func Save(options map[string]string) {
+func SaveConfigToFile(options map[string]string) {
 	for k, v := range options {
 		viper.Set(k, v)
 	}
