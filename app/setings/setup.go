@@ -1,14 +1,12 @@
-package main
+package setup
 
 import (
-	"./app/lib/config"
-	"./app/lib/pw"
-	"./app/setup/prompts"
+	"github.com/destinmoulton/swerver/app/lib/config"
+	"github.com/destinmoulton/swerver/app/lib/pw"
+	"github.com/destinmoulton/swerver/app/setup/prompts"
 )
 
-func main() {
-
-	// fmt.Printf("The setup has been saved to .env")
+func PromptConfig() {
 
 	options := map[string]string{}
 

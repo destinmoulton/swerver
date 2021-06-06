@@ -12,6 +12,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/destinmoulton/swerver/app/lib/rando"
+	"github.com/destinmoulton/swerver/app/setup"
 )
 
 var configPath = ""
@@ -39,11 +40,13 @@ func init() {
 		panic(uerr)
 	}
 
+	loadDefaults()
 	configPath = filepath.Join(usr.HomeDir, ".config/swerver")
 
 	if !doesConfigDirExist() {
 		fmt.Println("config dir doesn't exist")
 		createConfigDirAndFile()
+		setup.PromptConfig()
 	}
 
 	viper.SetConfigType(configFileType)
@@ -54,8 +57,6 @@ func init() {
 	if err != nil {
 		panic(fmt.Errorf("Fatal error cannot find config file: %s", err))
 	}
-
-	loadDefaults()
 
 }
 
