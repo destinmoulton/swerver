@@ -28,7 +28,7 @@ type Configuration struct {
 	WebTemplatesPath string
 	IPLookupURL      string
 	Username         string
-	PasswordHash     string
+	Password         string
 	CryptoSecret     string
 }
 
@@ -42,15 +42,16 @@ func init() {
 	loadDefaults()
 	configPath = filepath.Join(usr.HomeDir, ".config/swerver")
 
+	viper.SetConfigType(configFileType)
+	viper.SetConfigName(configFileName)
+	viper.AddConfigPath(configPath)
+
 	if !doesConfigDirExist() {
 		fmt.Println("config dir doesn't exist")
 		createConfigDirAndFile()
 		PromptConfig()
 	}
 
-	viper.SetConfigType(configFileType)
-	viper.SetConfigName(configFileName)
-	viper.AddConfigPath(configPath)
 	err := viper.ReadInConfig()
 
 	if err != nil {
@@ -68,7 +69,7 @@ func LoadConfig() Configuration {
 	iplookupURL := viper.GetString("ip_lookup_url")
 	webPath := viper.GetString("web_path")
 	username := viper.GetString("username")
-	passwordHash := viper.GetString("password")
+	password := viper.GetString("password")
 	cryptoSecret := viper.GetString("crypto_secret")
 
 	services := strings.Split(servicesToMonitor, ",")
@@ -82,7 +83,7 @@ func LoadConfig() Configuration {
 		WebStaticPath:    path.Join(webPath, "static"),
 		IPLookupURL:      iplookupURL,
 		Username:         username,
-		PasswordHash:     passwordHash,
+		Password:         password,
 		CryptoSecret:     cryptoSecret,
 	}
 }
@@ -112,7 +113,7 @@ func loadDefaults() {
 	viper.SetDefault("web_path", filepath.Join(path, "web"))
 	viper.SetDefault("services_to_monitor", "")
 	viper.SetDefault("ip_lookup_url", "https://ipecho.net/plain")
-	viper.SetDefault("crypto_secret", rando.GenerateRandomString(20))
+	viper.SetDefault("crypto_secret", rando.GenerateRandomString(32))
 	viper.SetDefault("username", "")
 	viper.SetDefault("password", "")
 }

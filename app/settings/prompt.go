@@ -13,11 +13,11 @@ func PromptConfig() {
 	options["scripts_path"] = prompts.ScriptsPath(GetSingleConfigValue("scripts_path"))
 	options["web_path"] = prompts.WebPath(GetSingleConfigValue("web_path"))
 	options["services_to_monitor"] = prompts.Services(GetSingleConfigValue("services_to_monitor"))
-	options["crypto_secret"] = prompts.Secret(GetSingleConfigValue("crypto_secret"))
+	options["crypto_secret"] = GetSingleConfigValue("crypto_secret")
 	options["username"] = prompts.Username(GetSingleConfigValue("username"))
 	password := prompts.Password()
 	if prompts.ConfirmPassword() != "" {
-		options["password"] = pw.GenerateHash(password)
+		options["password"] = pw.EncryptPassword(options["crypto_secret"], password)
 	}
 
 	SaveConfigToFile(options)

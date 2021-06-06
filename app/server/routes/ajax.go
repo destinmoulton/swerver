@@ -23,7 +23,7 @@ type service struct {
 }
 
 // AJAXRoutes creates the basic routes for ajax calls
-func AJAXRoutes(router *gin.Engine, settings settings.Configuration) {
+func AJAXRoutes(router *gin.RouterGroup, settings settings.Configuration) {
 	prefix := "/ajax"
 	router.GET(prefix+"/ip", func(c *gin.Context) {
 

@@ -1,8 +1,10 @@
 package server
 
 import (
+	"fmt"
 	"path"
 
+	"github.com/destinmoulton/swerver/app/lib/pw"
 	"github.com/destinmoulton/swerver/app/server/routes"
 	"github.com/destinmoulton/swerver/app/settings"
 	"github.com/gin-gonic/gin"
@@ -25,8 +27,13 @@ func Run(settings settings.Configuration) {
 
 	r.Static("/static", settings.WebStaticPath)
 
-	routes.HTMLRoutes(r)
-	routes.AJAXRoutes(r, settings)
+	username := settings.Username
+	password := pw.DecryptPassword(settings.CryptoSecret, settings.Password)
+	fmt.Println("PASSWORD: " + password)
+	authorized := r.Group("", gin.BasicAuth(gin.Accounts{username: password}))
+
+	routes.HTMLRoutes(authorized)
+	routes.AJAXRoutes(authorized, settings)
 
 	r.Run(":" + settings.Port)
 }

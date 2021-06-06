@@ -1,28 +1,22 @@
 package pw
 
 import (
-	"golang.org/x/crypto/bcrypt"
+	"github.com/destinmoulton/swerver/app/lib/crypto"
 )
 
-// GenerateHash builds a bcrypted storable password
-func GenerateHash(pwd string) string {
-
-	password := []byte(pwd)
-
-	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+// EncryptPassword encrypts a password with a 32byte key
+func EncryptPassword(key, pwd string) string {
+	enc, err := crypto.Encrypt([]byte(key), pwd)
 	if err != nil {
 		panic(err)
 	}
-	return string(hashedPassword)
+	return enc
 }
 
-// IsPasswordValid compares the hash with the test pwd
-func IsPasswordValid(hashedPassword string, pwd string) bool {
-	hashBytes := []byte(hashedPassword)
-	pwdBytes := []byte(pwd)
-	err := bcrypt.CompareHashAndPassword(hashBytes, pwdBytes)
+func DecryptPassword(key, pwd string) string {
+	dec, err := crypto.Decrypt([]byte(key), pwd)
 	if err != nil {
 		panic(err)
 	}
-	return true
+	return dec
 }
