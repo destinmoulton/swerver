@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"path"
 
 	"github.com/destinmoulton/swerver/app/lib/pw"
@@ -29,7 +28,6 @@ func Run(settings settings.Configuration) {
 
 	username := settings.Username
 	password := pw.DecryptPassword(settings.CryptoSecret, settings.Password)
-	fmt.Println("PASSWORD: " + password)
 	authorized := r.Group("", gin.BasicAuth(gin.Accounts{username: password}))
 
 	routes.HTMLRoutes(authorized)
