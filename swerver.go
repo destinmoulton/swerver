@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./app/lib/config"
-	"./app/server"
+	"github.com/destinmoulton/swerver/app/lib/config"
+	"github.com/destinmoulton/swerver/app/server"
 )
 
 func main() {

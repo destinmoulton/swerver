@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"../config"
+	"github.com/destinmoulton/swerver/app/lib/config"
 )
 
 // Run a shell command

@@ -11,7 +11,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"../rando"
+	"github.com/destinmoulton/swerver/app/lib/rando"
 )
 
 var configPath = ""

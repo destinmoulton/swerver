@@ -3,8 +3,8 @@ package server
 import (
 	"path"
 
-	"../lib/config"
-	"./routes"
+	"github.com/destinmoulton/swerver/app/lib/config"
+	"github.com/destinmoulton/swerver/app/server/routes"
 	"github.com/gin-gonic/gin"
 
 	"github.com/gin-contrib/sessions"
