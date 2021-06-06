@@ -3,8 +3,8 @@ package server
 import (
 	"path"
 
-	"github.com/destinmoulton/swerver/app/lib/config"
 	"github.com/destinmoulton/swerver/app/server/routes"
+	"github.com/destinmoulton/swerver/app/settings"
 	"github.com/gin-gonic/gin"
 
 	"github.com/gin-contrib/sessions"
@@ -12,7 +12,7 @@ import (
 )
 
 // Run starts the gin server
-func Run(settings config.Configuration) {
+func Run(settings settings.Configuration) {
 
 	r := gin.Default()
 

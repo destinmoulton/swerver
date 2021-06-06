@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/destinmoulton/swerver/app/lib/commander"
-	"github.com/destinmoulton/swerver/app/lib/config"
+	"github.com/destinmoulton/swerver/app/settings"
 )
 
 type service struct {
@@ -23,7 +23,7 @@ type service struct {
 }
 
 // AJAXRoutes creates the basic routes for ajax calls
-func AJAXRoutes(router *gin.Engine, settings config.Configuration) {
+func AJAXRoutes(router *gin.Engine, settings settings.Configuration) {
 	prefix := "/ajax"
 	router.GET(prefix+"/ip", func(c *gin.Context) {
 
