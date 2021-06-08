@@ -7,29 +7,28 @@ Swerver is a basic server management utility that provides a web interface for m
 -   Run scripts with terminal output for the command
 -   Monitor, start, and stop services
 -   System information including memory usage, uptime, and average load
+-   Interactive config generation for rapid setup/deployment
 
-Do **not** use swerver outside of a LAN protected by a secure firewall. Swerver provides no user authentication and it would be dumb to use it on anything that contains sensitive information.
+Do **not** use swerver outside of a LAN protected by a secure firewall. Swerver provides only HTTP Basic authentication via browser prompt. This is insecure and should not be used in a public setting.
 
 ### Installation and Configuration
 
 ```
 $ git clone https://github.com/destinmoulton/swerver.git
 $ cd swerver
-$ go get github.com/joho/godotenv
 $ go get github.com/gin-gonic/gin
+$ go get github.com/gin-contrib/sessions
 ```
 
 #### Configuration
 
-```
-$ cd /swerver-install-path
-$ cp .env.template .env
-```
+The configuration file is stored in `~/.config/swerver/swerver.config.toml`.
 
-Configure the values in `.env`.
+To generate a configuration file, run `swerver`:
 
 ```
-$ go build swerver
+$ cd swerver
+$ ./swerver
 ```
 
 ### Setting Swerver Up as a Service
